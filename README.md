@@ -14,6 +14,18 @@ IdeaVim
 
 IdeaVim is a Vim engine for JetBrains IDEs.
 
+本分支新增功能
+------------
+
+在上游 IdeaVim 基础上, 本分支额外增加的功能:
+
+- **内置 easymotion.** 不需要另装 IdeaVim-EasyMotion 和 AceJump 插件, 在 `~/.ideavimrc` 中写 `set easymotion` 即可使用.
+- **easymotion 词移动兼容 CJK.** `w`/`b`/`e`/`ge` 及其 `bd-`, 行内变体默认把连续汉字, 连续中文/全角标点, 连续 ASCII 符号各当作一个词, 规则可用 `g:EasyMotion_word_regex` 和 `g:EasyMotion_word_min_spacing` 调整, 详见 [doc/IdeaVim Plugins.md](doc/IdeaVim%20Plugins.md) 的 easymotion 一节.
+- **easymotion 的 `g:` 变量能够生效.** 上游 IdeaVim-EasyMotion 读不到 ideavimrc 中设置的 `g:EasyMotion_startofline` 等变量, 本分支已修复.
+
+> [!IMPORTANT]
+> 本分支的插件包与官方 IdeaVim 使用同一个插件 id, 安装后会替换官方版本, 请关闭官方插件的自动更新. 内置 easymotion 与独立安装的 AceJump, IdeaVim-EasyMotion 不兼容, 请先卸载它们.
+
 ##### Contact maintainers:
 * [Bug tracker](https://youtrack.jetbrains.com/issues/VIM)
 * [@IdeaVim](https://twitter.com/ideavim) on Twitter

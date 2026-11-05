@@ -2,6 +2,8 @@
 
 Guidance for Claude Code when working with IdeaVim.
 
+本仓库是 fork, 开发之前同时阅读 AGENTS.md, 里面是本 fork 自己的规则.
+
 ## Quick Reference
 
 Essential commands:
