@@ -344,8 +344,9 @@ It takes the \<number> out of \<number>w or \<number>f{char} by highlighting all
 and allowing you to press one key to jump directly to the target.
 
 ### Setup:
-- Install [IdeaVim-EasyMotion](https://plugins.jetbrains.com/plugin/13360-ideavim-easymotion/)
-      and [AceJump](https://plugins.jetbrains.com/plugin/7086-acejump/) plugins.
+- 本 fork 已内置 easymotion 及其使用的 AceJump, 不需要另装插件.
+  如果之前装过独立的 [IdeaVim-EasyMotion](https://plugins.jetbrains.com/plugin/13360-ideavim-easymotion/)
+  和 [AceJump](https://plugins.jetbrains.com/plugin/7086-acejump/), 请先卸载, 两者与内置版本冲突.
 - Add the following command to `~/.ideavimrc`: `Plug 'easymotion/vim-easymotion'`
     <details>
       <summary>Alternative syntax</summary>
@@ -361,6 +362,17 @@ and allowing you to press one key to jump directly to the target.
 ### Instructions
    
 All commands with the mappings are supported. See the [full list of supported commands](https://github.com/AlexPl292/IdeaVim-EasyMotion#supported-commands).
+
+本 fork 的词移动 (`w`, `b`, `e`, `ge` 及其 `bd-`, 行内变体) 默认把连续汉字, 连续中文/全角标点, 连续 ASCII 符号各当作一个词, 可在 `~/.ideavimrc` 中调整:
+
+```vim
+" 词移动的 Java 正则, 每次匹配是一个跳转目标. 设为 '\w+' 即恢复上游只认 ASCII 词的行为.
+let g:EasyMotion_word_regex = '\w+|[\u4e00-\u9fff]+|[\u3000-\u303f\uff00-\uffef]+|[!-/:-@\[-`{-~]+'
+" w / b 同一行相邻目标的最小列距, 设为 1 显示全部目标.
+let g:EasyMotion_word_min_spacing = 2
+```
+
+另外 `g:EasyMotion_startofline`, `g:EasyMotion_re_anywhere` 等上游变量在 ideavimrc 中设置后也能生效.
 
 </details>
 

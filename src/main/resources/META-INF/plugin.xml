@@ -62,6 +62,9 @@
     <module name="IdeaVIM.ideavim-backend-git" loading="optional"/>
     <module name="IdeaVIM.ideavim-backend-git-legacy" loading="optional"/>
     <module name="IdeaVIM.ideavim-acejump"/>
+    <!-- 内置 easymotion 及其使用的 AceJump 副本, 不能与独立安装的 AceJump / IdeaVim-EasyMotion 同时启用 -->
+    <module name="IdeaVIM.ideavim-acejump-bundled"/>
+    <module name="IdeaVIM.ideavim-easymotion"/>
     <module name="IdeaVIM.ideavim-rider"/>
     <module name="IdeaVIM.ideavim-clion-nova"/>
     <module name="IdeaVIM.ideavim-terminal"/>

@@ -21,6 +21,9 @@
     <extensionPoint interface="com.maddyhome.idea.vim.ide.RiderProvider" dynamic="true" name="riderProvider"/>
     <extensionPoint interface="com.maddyhome.idea.vim.key.IdeaVimDisablerExtensionPoint" dynamic="true"
                     name="internal.disabler"/>
+    <!-- 本插件内并入的 AceJump 副本报告会话状态, 由 ideavim-easymotion 注册 -->
+    <extensionPoint interface="com.maddyhome.idea.vim.listener.AceJumpService" dynamic="true"
+                    name="bundledAceJumpService"/>
   </extensionPoints>
 
   <!-- Frontend registrations: UI, editor, key handling, status bar, actions.

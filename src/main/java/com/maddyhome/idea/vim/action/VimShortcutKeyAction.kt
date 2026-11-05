@@ -222,7 +222,7 @@ class VimShortcutKeyAction : AnAction(), DumbAware/*, LightEditCompatible*/ {
       return ActionEnableStatus.no("Python notebook is in command mode", LogLevel.INFO)
     }
 
-    if (AceJumpService.getInstance()?.isActive(editor) == true) {
+    if (AceJumpService.isAnyActive(editor)) {
       return ActionEnableStatus.no("AceJump is active", LogLevel.INFO)
     }
 

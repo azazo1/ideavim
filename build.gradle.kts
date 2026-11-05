@@ -136,6 +136,8 @@ dependencies {
     pluginModule(runtimeOnly(project(":ideavim-backend-git")))
     pluginModule(runtimeOnly(project(":ideavim-backend-git-legacy")))
     pluginModule(runtimeOnly(project(":ideavim-acejump")))
+    pluginModule(runtimeOnly(project(":ideavim-acejump-bundled")))
+    pluginModule(runtimeOnly(project(":ideavim-easymotion")))
     pluginModule(runtimeOnly(project(":ideavim-rider")))
     pluginModule(runtimeOnly(project(":ideavim-clion-nova")))
     pluginModule(runtimeOnly(project(":ideavim-terminal")))
@@ -338,11 +340,6 @@ tasks {
     version = "2025.3.2"
     splitMode = true
     splitModeTarget = SplitModeAware.SplitModeTarget.BOTH
-
-    plugins {
-      plugin("AceJump", "3.8.22")
-      plugin("org.jetbrains.IdeaVim-EasyMotion", "1.16")
-    }
   }
   val runRider by intellijPlatformTesting.runIde.registering {
     type = IntelliJPlatformType.Rider
@@ -352,32 +349,18 @@ tasks {
     task {
       systemProperty("idea.log.debug.categories", "com.maddyhome.idea.vim.handler.EditorHandlersChainLogger")
     }
-    plugins {
-      plugin("AceJump", "3.8.22")
-      plugin("org.jetbrains.IdeaVim-EasyMotion", "1.16")
-    }
   }
   val runCLionSplitMode by intellijPlatformTesting.runIde.registering {
     type = IntelliJPlatformType.CLion
     version = "2026.1"
     splitMode = true
     splitModeTarget = SplitModeAware.SplitModeTarget.BOTH
-
-    plugins {
-      plugin("AceJump", "3.8.22")
-      plugin("org.jetbrains.IdeaVim-EasyMotion", "1.16")
-    }
   }
   val runPycharmSplitMode by intellijPlatformTesting.runIde.registering {
     type = IntelliJPlatformType.PyCharmProfessional
     version = "2026.1"
     splitMode = true
     splitModeTarget = SplitModeAware.SplitModeTarget.BOTH
-
-    plugins {
-      plugin("AceJump", "3.8.22")
-      plugin("org.jetbrains.IdeaVim-EasyMotion", "1.16")
-    }
   }
 
   // Run split mode with a JDWP debug agent on the frontend (JetBrains Client) process.
@@ -385,11 +368,6 @@ tasks {
   val runIdeSplitModeDebugFrontend by intellijPlatformTesting.runIde.registering {
     splitMode = true
     splitModeTarget = SplitModeAware.SplitModeTarget.BOTH
-
-    plugins {
-      plugin("AceJump", "3.8.22")
-      plugin("org.jetbrains.IdeaVim-EasyMotion", "1.16")
-    }
 
     prepareSandboxTask {
       val sandboxDir = project.layout.buildDirectory.dir("idea-sandbox").map { it.asFile }
@@ -425,11 +403,6 @@ tasks {
     splitMode = true
     splitModeTarget = SplitModeAware.SplitModeTarget.BOTH
 
-    plugins {
-      plugin("AceJump", "3.8.22")
-      plugin("org.jetbrains.IdeaVim-EasyMotion", "1.16")
-    }
-
     prepareSandboxTask {
       val sandboxDir = project.layout.buildDirectory.dir("idea-sandbox").map { it.asFile }
       doLast {
@@ -461,11 +434,6 @@ tasks {
   val testIdeSplitMode by intellijPlatformTesting.testIde.registering {
     splitMode = true
     splitModeTarget = SplitModeAware.SplitModeTarget.BOTH
-
-    plugins {
-      plugin("AceJump", "3.8.22")
-      plugin("org.jetbrains.IdeaVim-EasyMotion", "1.16")
-    }
 
     task {
       useJUnitPlatform()

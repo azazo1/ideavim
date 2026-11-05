@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright 2003-2026 The IdeaVim authors
+  ~
+  ~ Use of this source code is governed by an MIT-style
+  ~ license that can be found in the LICENSE.txt file or at
+  ~ https://opensource.org/licenses/MIT.
+  -->
+
+<!--
+  并入的 AceJump, 只服务于内置 easymotion. 内容取自上游 plugin.xml, 改动:
+  - 不注册 ctrl+; 等独立 AceJump 动作, 会话只由 easymotion 启动.
+  - 设置页与按键处理器换用新的 id, 设置页显示名改为 EasyMotion.
+  不能与独立安装的 AceJump 插件同时启用, 两者的类名与服务相同.
+-->
+<idea-plugin package="org.acejump">
+  <dependencies>
+    <module name="intellij.platform.frontend"/>
+  </dependencies>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceImplementation="org.acejump.config.AceConfig"/>
+    <applicationConfigurable groupId="tools" displayName="EasyMotion"
+                             instance="org.acejump.config.AceConfigurable"
+                             id="IdeaVim.bundled.AceConfigurable" dynamic="true"/>
+
+    <!-- 只在 AceJump 会话进行中接管, 其余时间交回原处理器 -->
+    <editorActionHandler action="EditorEscape" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$Reset"
+                         id="IdeaVimBundledAceHandlerEscape"/>
+    <editorActionHandler action="EditorBackSpace" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$ClearSearch"
+                         id="IdeaVimBundledAceHandlerBackSpace"/>
+    <editorActionHandler action="EditorStartNewLine" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SelectBackward"
+                         id="IdeaVimBundledAceHandlerStartNewLine"/>
+    <editorActionHandler action="EditorEnter" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SelectForward"
+                         id="IdeaVimBundledAceHandlerEnter"/>
+    <editorActionHandler action="EditorTab" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$ScrollToNextScreenful"
+                         id="IdeaVimBundledAceHandlerTab"/>
+    <editorActionHandler action="EditorUnindentSelection" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$ScrollToPreviousScreenful"
+                         id="IdeaVimBundledAceHandlerUnindentSelection"/>
+    <editorActionHandler action="EditorUp" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SearchLineStarts"
+                         id="IdeaVimBundledAceHandlerUp"/>
+    <editorActionHandler action="EditorLeft" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SearchLineIndents"
+                         id="IdeaVimBundledAceHandlerLeft"/>
+    <editorActionHandler action="EditorLineStart" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SearchLineIndents"
+                         id="IdeaVimBundledAceHandlerLineStart"/>
+    <editorActionHandler action="EditorRight" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SearchLineEnds"
+                         id="IdeaVimBundledAceHandlerRight"/>
+    <editorActionHandler action="EditorLineEnd" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SearchLineEnds"
+                         id="IdeaVimBundledAceHandlerLineEnd"/>
+  </extensions>
+</idea-plugin>

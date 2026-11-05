@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright 2003-2026 The IdeaVim authors
+  ~
+  ~ Use of this source code is governed by an MIT-style
+  ~ license that can be found in the LICENSE.txt file or at
+  ~ https://opensource.org/licenses/MIT.
+  -->
+
+<!--
+  内置 easymotion. 扩展注册取自上游 IdeaVim-EasyMotion 的 plugin.xml, 依赖的 AceJump 换成本插件内的
+  IdeaVIM.ideavim-acejump-bundled. 不能与独立安装的 IdeaVim-EasyMotion 同时启用, 两者都注册名为 easymotion 的扩展.
+-->
+<idea-plugin package="org.jetbrains.plugins.extension.easymotion">
+  <dependencies>
+    <module name="IdeaVIM.ideavim-frontend"/>
+    <module name="IdeaVIM.ideavim-acejump-bundled"/>
+  </dependencies>
+
+  <extensions defaultExtensionNs="IdeaVIM">
+    <vimExtension implementation="org.jetbrains.plugins.extension.easymotion.EasyMotionExtension" name="easymotion">
+      <aliases>
+        <alias name="https://github.com/easymotion/vim-easymotion"/>
+        <alias name="easymotion/vim-easymotion"/>
+        <alias name="vim-easymotion"/>
+      </aliases>
+    </vimExtension>
+
+    <!-- 让 IdeaVim 在内置 AceJump 会话期间把 Esc, Enter 等按键让给 AceJump -->
+    <bundledAceJumpService
+        implementation="org.jetbrains.plugins.extension.easymotion.integration.BundledAceJumpSessionService"/>
+  </extensions>
+
+  <projectListeners>
+    <listener class="org.jetbrains.plugins.extension.easymotion.EasyMotionActionListener"
+              topic="com.intellij.openapi.actionSystem.ex.AnActionListener"/>
+  </projectListeners>
+</idea-plugin>
