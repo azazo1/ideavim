@@ -9,9 +9,12 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.intellij.platform.gradle.tasks.PrepareSandboxTask
 import org.jetbrains.intellij.platform.gradle.tasks.aware.SplitModeAware
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 
 buildscript {
   repositories {
@@ -224,6 +227,12 @@ if (currentJavaVersion != javaVersion) {
 }
 
 tasks {
+  // 本 fork 内置了 AceJump 副本. ideavim-acejump 依赖的独立 AceJump 会被装进每个沙箱, 与内置副本重复注册服务,
+  // 所以在所有沙箱 (构建, 测试, runIde) 里禁用它. 每次准备沙箱都会写入, 删掉沙箱重建也生效.
+  withType<PrepareSandboxTask>().configureEach {
+    disabledPlugins.add("AceJump")
+  }
+
   test {
     useJUnitPlatform()
 
@@ -233,8 +242,7 @@ tasks {
       "idea.load.plugins.id",
       listOfNotNull(
         "com.intellij",
-        "azazo1.IdeaVim", // 本 fork 的插件 id, 见 plugin.xml
-        "AceJump",
+        "azazo1.IdeaVim", // 本 fork 的插件 id, 见 plugin.xml; 不再加载独立 AceJump, 原因见上面的 PrepareSandboxTask
         "intellij.bookmarks.plugin".takeIf { bookmarksIsSeparatePlugin },
       ).joinToString(","),
     )
@@ -457,6 +465,24 @@ tasks {
   buildPlugin {
     dependsOn(sourcesJar)
     from(sourcesJar) { into("lib/src") }
+    finalizedBy("copyPluginToRoot")
+  }
+
+  // 本 fork: 构建完成后把插件包复制到项目根目录, 方便直接安装. build/distributions 下的原产物保留,
+  // 上游的测试和 TeamCity 仍从那里读取. 根目录的副本已在 .gitignore 中忽略.
+  // 只把这一个 zip 声明为输出, 不用 Copy 任务, 否则整个项目目录都会被当作输出扫描.
+  register("copyPluginToRoot") {
+    // 在配置阶段把路径取成 File, doLast 里只用这些值; 引用 layout 或 project 会让 configuration cache 无法序列化
+    val archive = buildPlugin.flatMap { it.archiveFile }
+    val rootDir = layout.projectDirectory.asFile
+    inputs.file(archive)
+    outputs.file(archive.map { File(rootDir, it.asFile.name) })
+    doLast {
+      val from = archive.get().asFile
+      val to = File(rootDir, from.name)
+      Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING)
+      println("Copied plugin to $to")
+    }
   }
 }
 

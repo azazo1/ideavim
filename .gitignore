@@ -41,3 +41,6 @@ settings.xml
 # Local runs of the property test auto-fix workflow
 /property_failures/
 /property_fix_result.json
+
+# 本 fork: buildPlugin 完成后复制到根目录的插件包
+/IdeaVIM-*.zip

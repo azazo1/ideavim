@@ -50,7 +50,8 @@ docker run --rm \
 - macOS 上 Docker Desktop 的命令在 `~/.docker/bin`, 不在 PATH 里时拉取镜像会找不到 `docker-credential-desktop`.
 - 首次构建要下载 Gradle 和 IntelliJ IU, 共几个 GB.
 - `buildSearchableOptions` 任务会打印大量堆栈, 这是上游原有的噪音, 以 `BUILD SUCCESSFUL` 为准.
-- 产物在 `build/distributions/` 下, 在 IDE 中用 Install Plugin from Disk 安装. 安装前要禁用或卸载官方 IdeaVim.
+- 构建脚本在所有沙箱里禁用独立 AceJump (`PrepareSandboxTask.disabledPlugins`), 避免和内置副本重复注册. 日志里不应再出现 `AceConfig is already registered`.
+- 产物在 `build/distributions/` 下, 构建完成后会复制一份到项目根目录 (`IdeaVIM-*.zip`, 已被 git 忽略). 在 IDE 中用 Install Plugin from Disk 安装, 安装前要禁用或卸载官方 IdeaVim.
 - 不再需要缓存时执行 `docker volume rm ideavim-gradle`.
 
 ## 版本号
