@@ -171,6 +171,9 @@ class Session(private val mainEditor: Editor, private val jumpEditors: List<Edit
           }
         }
       }
+      // IdeaVim 内置副本: 与 startRegexSearch 一样保存搜索器. 上游没有保存, 输入标签首字符时会重新做一次字符搜索,
+      // 不以该字符开头的目标被丢掉, 两字符标签的第二个字符随之消失 (按下仍能跳转, 因为标签表还在).
+      .also { searchProcessor = it }
   
     updateSearch(processor, markImmediately = true)
   }

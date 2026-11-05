@@ -9,10 +9,11 @@
 
 ## 本地改动
 
-源码只改了两处, 其余与上游逐字一致:
+源码改了:
 
 - `config/AceConfig.kt`: 状态名改为 `IdeaVimBundledAceConfig`, 存储文件改为 `IdeaVimBundledAceJump.xml`, 避免和独立安装的 AceJump 共用设置文件.
 - `config/AceConfigurable.kt`: 设置页显示名改为 `EasyMotion`.
+- `session/Session.kt`: `markResults` 像 `startRegexSearch` 一样保存搜索器. 上游没有保存, 输入两字符标签的首字符后, 第二个字符不再显示.
 
 模块描述文件 `IdeaVIM.ideavim-acejump-bundled.xml` 由上游 `plugin.xml` 改写:
 
@@ -25,4 +26,4 @@
 
 ## 同步上游
 
-用新 commit 的 `src/main/kotlin/org/acejump/` 覆盖本模块的 `src/main/java/org/acejump/`, 再重新应用上面两处源码改动, 并对照上游 `plugin.xml` 检查描述文件.
+用新 commit 的 `src/main/kotlin/org/acejump/` 覆盖本模块的 `src/main/java/org/acejump/`, 再重新应用上面几处源码改动, 并对照上游 `plugin.xml` 检查描述文件.
