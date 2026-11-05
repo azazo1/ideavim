@@ -50,7 +50,8 @@ import org.jetbrains.annotations.Nullable;
 public class VimPlugin implements PersistentStateComponent<Element>, Disposable {
 
   public static final int STATE_VERSION = 7;
-  private static final String IDEAVIM_PLUGIN_ID = "IdeaVIM";
+  // 本 fork 使用独立的插件 id, 插件市场上的官方 IdeaVim (id IdeaVIM) 不会被当成它的新版本; 其余代码都引用这个常量
+  public static final String IDEAVIM_PLUGIN_ID = "azazo1.IdeaVim";
   private static final Logger LOG = Logger.getInstance(VimPlugin.class);
 
   static {

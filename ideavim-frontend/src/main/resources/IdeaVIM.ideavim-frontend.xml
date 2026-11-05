@@ -13,17 +13,18 @@
   </dependencies>
 
   <!-- Extension points only used by frontend -->
+  <!-- 本 fork 换了插件 id, 扩展点用 qualifiedName 固定为 IdeaVIM.xxx, 代码和 defaultExtensionNs 不受影响 -->
   <extensionPoints>
-    <extensionPoint name="vimExtension" beanClass="com.maddyhome.idea.vim.extension.ExtensionBeanClass" dynamic="true">
+    <extensionPoint qualifiedName="IdeaVIM.vimExtension" beanClass="com.maddyhome.idea.vim.extension.ExtensionBeanClass" dynamic="true">
       <with attribute="implementation" implements="com.maddyhome.idea.vim.extension.VimExtension"/>
     </extensionPoint>
-    <extensionPoint interface="com.maddyhome.idea.vim.ide.ClionNovaProvider" dynamic="true" name="clionNovaProvider"/>
-    <extensionPoint interface="com.maddyhome.idea.vim.ide.RiderProvider" dynamic="true" name="riderProvider"/>
+    <extensionPoint interface="com.maddyhome.idea.vim.ide.ClionNovaProvider" dynamic="true" qualifiedName="IdeaVIM.clionNovaProvider"/>
+    <extensionPoint interface="com.maddyhome.idea.vim.ide.RiderProvider" dynamic="true" qualifiedName="IdeaVIM.riderProvider"/>
     <extensionPoint interface="com.maddyhome.idea.vim.key.IdeaVimDisablerExtensionPoint" dynamic="true"
-                    name="internal.disabler"/>
+                    qualifiedName="IdeaVIM.internal.disabler"/>
     <!-- 本插件内并入的 AceJump 副本报告会话状态, 由 ideavim-easymotion 注册 -->
     <extensionPoint interface="com.maddyhome.idea.vim.listener.AceJumpService" dynamic="true"
-                    name="bundledAceJumpService"/>
+                    qualifiedName="IdeaVIM.bundledAceJumpService"/>
   </extensionPoints>
 
   <!-- Frontend registrations: UI, editor, key handling, status bar, actions.

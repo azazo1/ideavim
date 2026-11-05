@@ -1,0 +1,19 @@
+<!--
+  ~ Copyright 2003-2026 The IdeaVim authors
+  ~
+  ~ Use of this source code is governed by an MIT-style
+  ~ license that can be found in the LICENSE.txt file or at
+  ~ https://opensource.org/licenses/MIT.
+  -->
+
+<!-- 本 fork 自身的功能, 只用平台接口, 不依赖 IdeaVim 的代码 -->
+<idea-plugin package="com.maddyhome.idea.vim.fork">
+  <dependencies>
+    <module name="intellij.platform.frontend"/>
+  </dependencies>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <notificationGroup displayType="STICKY_BALLOON" id="ideavim-fork"/>
+    <postStartupActivity implementation="com.maddyhome.idea.vim.fork.OfficialIdeaVimConflictCheck"/>
+  </extensions>
+</idea-plugin>

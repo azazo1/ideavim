@@ -14,8 +14,9 @@
 
   <extensionPoints>
     <!-- Implemented by ideavim-backend-git when the Git plugin is available -->
+    <!-- 本 fork 换了插件 id, 用 qualifiedName 固定扩展点全名 -->
     <extensionPoint interface="com.maddyhome.idea.vim.group.git.GitExecutableLocator" dynamic="true"
-                    name="gitExecutableLocator"/>
+                    qualifiedName="IdeaVIM.gitExecutableLocator"/>
   </extensionPoints>
 
   <!-- Backend registrations: IdeDocumentHistory, Bookmarks, ProjectView, PSI.

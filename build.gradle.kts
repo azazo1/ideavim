@@ -138,6 +138,7 @@ dependencies {
     pluginModule(runtimeOnly(project(":ideavim-acejump")))
     pluginModule(runtimeOnly(project(":ideavim-acejump-bundled")))
     pluginModule(runtimeOnly(project(":ideavim-easymotion")))
+    pluginModule(runtimeOnly(project(":ideavim-fork")))
     pluginModule(runtimeOnly(project(":ideavim-rider")))
     pluginModule(runtimeOnly(project(":ideavim-clion-nova")))
     pluginModule(runtimeOnly(project(":ideavim-terminal")))
@@ -232,7 +233,7 @@ tasks {
       "idea.load.plugins.id",
       listOfNotNull(
         "com.intellij",
-        "IdeaVIM",
+        "azazo1.IdeaVim", // 本 fork 的插件 id, 见 plugin.xml
         "AceJump",
         "intellij.bookmarks.plugin".takeIf { bookmarksIsSeparatePlugin },
       ).joinToString(","),
@@ -519,7 +520,8 @@ val changeNotesParts = provider {
 
 intellijPlatform {
   pluginConfiguration {
-    name = "IdeaVim"
+    // 会覆盖 plugin.xml 的 <name>, 两处保持一致
+    name = "IdeaVim (azazo1)"
     changeNotes.set(changeNotesParts.map { (rendered, notesVersion) ->
       val youtrackUrl =
         "https://youtrack.jetbrains.com/issues/VIM?q=State:%20Fixed%20Fix%20versions:%20$notesVersion"

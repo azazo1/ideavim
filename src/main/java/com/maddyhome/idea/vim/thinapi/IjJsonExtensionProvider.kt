@@ -9,6 +9,7 @@
 package com.maddyhome.idea.vim.thinapi
 
 import com.intellij.openapi.application.PathManager
+import com.maddyhome.idea.vim.VimPlugin
 import com.maddyhome.idea.vim.diagnostic.vimLogger
 import com.maddyhome.idea.vim.extension.ExtensionBean
 import com.maddyhome.idea.vim.extension.JsonExtensionProvider
@@ -223,6 +224,7 @@ class IjJsonExtensionProvider : JsonExtensionProvider {
 
   companion object {
     private const val EXTENSION_LIST_FILE_NAME: String = "ideavim_extensions.json"
-    private const val IDEAVIM_ID: String = "IdeaVIM"
+    // 本 fork 换了插件 id, 统一取 VimPlugin 中的定义
+    private const val IDEAVIM_ID: String = VimPlugin.IDEAVIM_PLUGIN_ID
   }
 }

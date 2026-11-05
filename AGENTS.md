@@ -21,8 +21,16 @@
 
 - `ideavim-acejump-bundled/`: 并入的 AceJump 源码, 供内置 easymotion 使用.
 - `ideavim-easymotion/`: 并入的 IdeaVim-EasyMotion 源码, 加上 `cjk/` (CJK 词移动规则) 和 `integration/` (接入 IdeaVim 的代码).
+- `ideavim-fork/`: 本 fork 自身的功能, 如启动时检测官方 IdeaVim 是否同时启用.
 
 不依赖 IDE 的逻辑在模块自己的 `src/test` 下测试.
+
+## 插件 id
+
+- 插件 id 为 `azazo1.IdeaVim`, 定义在 `plugin.xml`, 代码中统一引用 `VimPlugin.IDEAVIM_PLUGIN_ID`, 不要再写死字符串.
+- 官方 IdeaVim 的 id 是 `IdeaVIM`, 只用于检测冲突.
+- 扩展点用 `qualifiedName="IdeaVIM.xxx"` 声明, 全名不随插件 id 变化, 所以代码里的 `IdeaVIM.vimExtension` 等名字和 XML 中的 `defaultExtensionNs="IdeaVIM"` 保持不变. 新增扩展点也按这个写法.
+- 依赖官方 id 的第三方插件在本 fork 下无法加载, 需要的功能应集成进本 fork.
 
 ## 构建与测试
 
@@ -42,7 +50,7 @@ docker run --rm \
 - macOS 上 Docker Desktop 的命令在 `~/.docker/bin`, 不在 PATH 里时拉取镜像会找不到 `docker-credential-desktop`.
 - 首次构建要下载 Gradle 和 IntelliJ IU, 共几个 GB.
 - `buildSearchableOptions` 任务会打印大量堆栈, 这是上游原有的噪音, 以 `BUILD SUCCESSFUL` 为准.
-- 产物在 `build/distributions/IdeaVIM-SNAPSHOT.zip`, 在 IDE 中用 Install Plugin from Disk 安装. 它与官方 IdeaVim 使用同一个插件 id, 安装后要关闭官方插件的自动更新.
+- 产物在 `build/distributions/` 下, 在 IDE 中用 Install Plugin from Disk 安装. 安装前要禁用或卸载官方 IdeaVim.
 - 不再需要缓存时执行 `docker volume rm ideavim-gradle`.
 
 ## 版本号

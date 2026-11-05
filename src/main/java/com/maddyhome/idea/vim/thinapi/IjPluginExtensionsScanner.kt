@@ -12,6 +12,7 @@ import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
+import com.maddyhome.idea.vim.VimPlugin
 import com.maddyhome.idea.vim.diagnostic.vimLogger
 import com.maddyhome.idea.vim.extension.ExtensionBean
 import com.maddyhome.idea.vim.extension.KspExtensionBean
@@ -21,7 +22,8 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.InputStream
 
-internal const val IDEAVIM_ID = "IdeaVIM"
+// 本 fork 换了插件 id, 统一取 VimPlugin 中的定义
+internal const val IDEAVIM_ID = VimPlugin.IDEAVIM_PLUGIN_ID
 
 fun IdeaPluginDescriptor.isIdeaVimExtension(): Boolean {
   return dependencies.any { it.pluginId.idString == IDEAVIM_ID }
